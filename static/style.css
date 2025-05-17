@@ -1,0 +1,34 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff8f0;
+}
+header {
+    background: #783f04;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.container {
+    padding: 20px;
+}
+.product {
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+.product img {
+    max-width: 100%;
+}
+footer {
+    background: #eee;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}

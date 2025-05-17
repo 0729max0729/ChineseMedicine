@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>聯絡我們</h2>
+    <form method="post">
+        <p><label>姓名：<input type="text" name="name"></label></p>
+        <p><label>Email：<input type="email" name="email"></label></p>
+        <p><label>訊息：<br><textarea name="message" rows="5" cols="30"></textarea></label></p>
+        <p><button type="submit">送出</button></p>
+    </form>
+{% endblock %}
