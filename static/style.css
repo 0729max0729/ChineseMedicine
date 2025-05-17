@@ -1,25 +1,4 @@
 body {
     font-family: "Noto Sans TC", sans-serif;
     background: #fffaf5;
-    margin: 0;
-    padding: 0;
-}
-header {
-    background: #5c3a21;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-nav a {
-    margin: 0 10px;
-    color: white;
-    text-decoration: none;
-}
-.container {
-    padding: 2rem;
-}
-footer {
-    background: #eee;
-    text-align: center;
-    padding: 1rem;
 }

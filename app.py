@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 import os
 
 app = Flask(__name__)
@@ -7,21 +7,21 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
+@app.route("/about/<section>")
+def about(section):
+    return render_template("about.html", section=section)
 
-@app.route("/products")
-def products():
-    return render_template("products.html")
+@app.route("/products/<category>")
+def products(category):
+    return render_template("products.html", category=category)
 
-@app.route("/blog")
-def blog():
-    return render_template("blog.html")
+@app.route("/blog/<topic>")
+def blog(topic):
+    return render_template("blog.html", topic=topic)
 
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
+@app.route("/contact/<option>")
+def contact(option):
+    return render_template("contact.html", option=option)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

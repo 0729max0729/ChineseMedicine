@@ -3,71 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>翰墨藥香</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<header>
-    <h1>翰墨藥香</h1>
-    <p>傳統漢方與現代生活的融合</p>
-    <nav>
-	  <ul style="list-style: none; display: flex; gap: 20px; justify-content: center; padding: 0;">
-		<li><a href="/">首頁</a></li>
-
-		<li style="position: relative;">
-		  <a href="/about">品牌理念</a>
-		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-			<li><a href="/about#philosophy">我們的堅持</a></li>
-			<li><a href="/about#value">品牌價值</a></li>
-			<li><a href="/about#selection">選物哲學</a></li>
-		  </ul>
-		</li>
-
-		<li style="position: relative;">
-		  <a href="/products">精選商品</a>
-		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-			<li><a href="/products#aroma">香氛/香薰</a></li>
-			<li><a href="/products#tea">花草茶/果乾水</a></li>
-			<li><a href="/products#soap">手工皂</a></li>
-			<li><a href="/products#bodycare">身體保養</a></li>
-			<li><a href="/products#herbal">養生藥膳</a></li>
-			<li><a href="/products#dessert">甜點飲品</a></li>
-			<li><a href="/products#gift">精品小物</a></li>
-		  </ul>
-		</li>
-
-		<li style="position: relative;">
-		  <a href="/blog">生活誌</a>
-		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-			<li><a href="/blog#health">健康養生</a></li>
-			<li><a href="/blog#aroma">香氛生活</a></li>
-			<li><a href="/blog#herbs">草本知識</a></li>
-		  </ul>
-		</li>
-
-		<li><a href="/contact">聯絡與合作</a></li>
-	  </ul>
-	</nav>
-	
-	<script>
-	// 顯示下拉選單
-	document.querySelectorAll('nav li').forEach(li => {
-	  li.addEventListener('mouseover', () => {
-		const ul = li.querySelector('ul');
-		if (ul) ul.style.display = 'block';
-	  });
-	  li.addEventListener('mouseout', () => {
-		const ul = li.querySelector('ul');
-		if (ul) ul.style.display = 'none';
-	  });
-	});
-	</script>
-	
-</header>
-<div class="container">
-    {% block content %}{% endblock %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">翰墨藥香</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">首頁</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">品牌理念</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/about/intro">關於翰墨藥香</a></li>
+            <li><a class="dropdown-item" href="/about/belief">我們的堅持</a></li>
+            <li><a class="dropdown-item" href="/about/value">傳遞品牌價值</a></li>
+            <li><a class="dropdown-item" href="/about/philosophy">選物哲學</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">精選商品</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/products/fragrance">香氛 / 香薰</a></li>
+            <li><a class="dropdown-item" href="/products/tea">花草茶 / 果乾水</a></li>
+            <li><a class="dropdown-item" href="/products/soap">手工皂</a></li>
+            <li><a class="dropdown-item" href="/products/medicine">養生藥膳</a></li>
+            <li><a class="dropdown-item" href="/products/dessert">甜點飲品</a></li>
+            <li><a class="dropdown-item" href="/products/gift">精品小物</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">生活誌</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/blog/health">健康養生</a></li>
+            <li><a class="dropdown-item" href="/blog/aroma">香氛生活</a></li>
+            <li><a class="dropdown-item" href="/blog/herb">草本知識</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">聯絡與合作</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/contact/service">客服聯繫</a></li>
+            <li><a class="dropdown-item" href="/contact/partner">合作洽詢</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <a href="#" class="btn btn-outline-light me-2">購物車</a>
+        <a href="#" class="btn btn-outline-light me-2">搜尋</a>
+        <a href="#" class="btn btn-outline-light">登入 / 訂閱</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container mt-4">
+  {% block content %}{% endblock %}
 </div>
-<footer>
-    © 2025 翰墨藥香 - 保留所有權利
-</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
