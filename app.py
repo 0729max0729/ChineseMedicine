@@ -1,27 +1,28 @@
 from flask import Flask, render_template, request
 import os
+
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    products = [
-        {"name": "四物湯包", "desc": "補血調經，適合女性日常保養", "img": "siwutang.jpg"},
-        {"name": "十全大補湯包", "desc": "滋補強身，提升元氣", "img": "buyao.jpg"},
-        {"name": "枇杷膏", "desc": "潤喉止咳，清涼解熱", "img": "pipagao.jpg"},
-        {"name": "養生花茶包", "desc": "嚴選枸杞、菊花、紅棗等天然材料", "img": "tea.jpg"},
-        {"name": "冬蟲夏草（禮盒）", "desc": "名貴滋補首選，送禮自用兩相宜", "img": "dongchongxiacao.jpg"}
-    ]
-    return render_template("index.html", products=products)
+    return render_template("index.html")
 
-@app.route("/contact", methods=["GET", "POST"])
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/products")
+def products():
+    return render_template("products.html")
+
+@app.route("/blog")
+def blog():
+    return render_template("blog.html")
+
+@app.route("/contact")
 def contact():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        message = request.form.get("message")
-        print(f"新留言：{name} / {email}：{message}")
     return render_template("contact.html")
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

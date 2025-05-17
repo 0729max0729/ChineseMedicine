@@ -1,11 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>產品介紹</h2>
-    {% for p in products %}
-    <div class="product">
-        <img src="{{ url_for('static', filename='images/' + p.img) }}" alt="{{ p.name }}">
-        <h3>{{ p.name }}</h3>
-        <p>{{ p.desc }}</p>
-    </div>
-    {% endfor %}
+<h2>首頁內容</h2>
+<p>這是 首頁內容 的範例內容區塊。</p>
 {% endblock %}
