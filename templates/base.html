@@ -10,12 +10,58 @@
     <h1>翰墨藥香</h1>
     <p>傳統漢方與現代生活的融合</p>
     <nav>
-        <a href="/">首頁</a>
-        <a href="/about">品牌理念</a>
-        <a href="/products">精選商品</a>
-        <a href="/blog">生活誌</a>
-        <a href="/contact">聯絡與合作</a>
-    </nav>
+	  <ul style="list-style: none; display: flex; gap: 20px; justify-content: center; padding: 0;">
+		<li><a href="/">首頁</a></li>
+
+		<li style="position: relative;">
+		  <a href="/about">品牌理念</a>
+		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+			<li><a href="/about#philosophy">我們的堅持</a></li>
+			<li><a href="/about#value">品牌價值</a></li>
+			<li><a href="/about#selection">選物哲學</a></li>
+		  </ul>
+		</li>
+
+		<li style="position: relative;">
+		  <a href="/products">精選商品</a>
+		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+			<li><a href="/products#aroma">香氛/香薰</a></li>
+			<li><a href="/products#tea">花草茶/果乾水</a></li>
+			<li><a href="/products#soap">手工皂</a></li>
+			<li><a href="/products#bodycare">身體保養</a></li>
+			<li><a href="/products#herbal">養生藥膳</a></li>
+			<li><a href="/products#dessert">甜點飲品</a></li>
+			<li><a href="/products#gift">精品小物</a></li>
+		  </ul>
+		</li>
+
+		<li style="position: relative;">
+		  <a href="/blog">生活誌</a>
+		  <ul style="position: absolute; background: white; list-style: none; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+			<li><a href="/blog#health">健康養生</a></li>
+			<li><a href="/blog#aroma">香氛生活</a></li>
+			<li><a href="/blog#herbs">草本知識</a></li>
+		  </ul>
+		</li>
+
+		<li><a href="/contact">聯絡與合作</a></li>
+	  </ul>
+	</nav>
+	
+	<script>
+	// 顯示下拉選單
+	document.querySelectorAll('nav li').forEach(li => {
+	  li.addEventListener('mouseover', () => {
+		const ul = li.querySelector('ul');
+		if (ul) ul.style.display = 'block';
+	  });
+	  li.addEventListener('mouseout', () => {
+		const ul = li.querySelector('ul');
+		if (ul) ul.style.display = 'none';
+	  });
+	});
+	</script>
+	
 </header>
 <div class="container">
     {% block content %}{% endblock %}
