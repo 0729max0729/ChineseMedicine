@@ -7,10 +7,10 @@ app = Flask(__name__)
 app.config.from_object('config.Config')
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')
 
+
+db.init_app(app)
 with app.app_context():
     db.create_all()
-db.init_app(app)
-
 @app.route('/')
 def index():
     products = Product.query.limit(5).all()
