@@ -3,4 +3,4 @@ shop_bp = Blueprint("shop", __name__)
 
 @shop_bp.route("/")
 def shop_index():
-    return render_template("shop.html")
+    return render_template("templates/shop.html")
