@@ -9,8 +9,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')
 
 
 db.init_app(app)
-with app.app_context():
-    db.create_all()
+
 @app.route('/')
 def index():
     products = Product.query.limit(5).all()
@@ -136,4 +135,5 @@ def order_history():
     return "<h1>訂單紀錄 (未實作)</h1>"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
+    app.run(host='0.0.0.0', port=port)
