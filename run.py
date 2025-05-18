@@ -257,7 +257,7 @@ def add_product():
         if not name or not price or not category:
             flash('請輸入商品名稱、價格和分類', 'danger')
             return render_template('add_product.html')
-
+        
         new_product = Product(
             name=name,
             description=description,
