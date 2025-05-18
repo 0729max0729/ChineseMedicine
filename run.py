@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from models import db, User, Product
 import os
 
+with app.app_context():
+    db.create_all()
 app = Flask(__name__)
 app.config.from_object('config.Config')
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')
