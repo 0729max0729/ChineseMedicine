@@ -11,7 +11,9 @@ app.secret_key = os.environ.get('SECRET_KEY')
 
 
 db.init_app(app)
-
+with app.app_context():
+    db.create_all()
+    
 @app.route('/')
 def index():
     products = Product.query.limit(5).all()
