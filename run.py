@@ -9,8 +9,7 @@ app.config.from_object('config.Config')
 app.secret_key = os.environ.get('SECRET_KEY')
 
 
-with app.app_context():
-    db.create_all()
+
 db.init_app(app)
 
 @app.route('/')
