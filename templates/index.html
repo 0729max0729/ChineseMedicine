@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}首頁 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>翰墨藥香 Hanmo Herbal</h1>
+<p>自然 · 品質 · 生活美學</p>
+<section>
+    <h2>精選推薦</h2>
+    <ul>
+        {% for product in products %}
+        <li>{{ product.name }} - ${{ product.price }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

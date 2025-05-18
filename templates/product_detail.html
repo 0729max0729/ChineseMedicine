@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<p>{{ product.description }}</p>
+<p>價格： ${{ product.price }}</p>
+<button>加入購物車</button>
+{% endblock %}

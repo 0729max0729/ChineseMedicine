@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}搜尋結果 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>搜尋結果</h1>
+<ul>
+    {% for product in search_results %}
+    <li>{{ product.name }} - ${{ product.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

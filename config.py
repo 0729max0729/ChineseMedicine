@@ -1,6 +1,5 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev_secret'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'postgresql://user:password@localhost:5432/shopdb'
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'postgresql://hanmo_db_user:xb6Y6B7BaxplZaz4UP37QRkQUvmw2PRg@dpg-d0kom1t6ubrc73bfef5g-a/hanmo_db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

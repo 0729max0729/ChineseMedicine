@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}香薰/香氛 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>香薰/香氛</h1>
+<ul>
+    {% for product in aroma_products %}
+    <li>{{ product.name }} - ${{ product.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

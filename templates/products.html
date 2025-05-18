@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}精選商品 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>精選商品</h1>
+<ul>
+    <li><a href="{{ url_for('aroma') }}">香薰/香氛</a></li>
+    <li><a href="{{ url_for('tea') }}">花草茶/果乾水</a></li>
+    <li><a href="{{ url_for('soap') }}">手工皂</a></li>
+    <li><a href="{{ url_for('bodycare') }}">身體保養</a></li>
+    <li><a href="{{ url_for('herbal') }}">養生藥膳</a></li>
+    <li><a href="{{ url_for('dessert') }}">甜點飲品</a></li>
+    <li><a href="{{ url_for('gift') }}">精品小物</a></li>
+</ul>
+{% endblock %}

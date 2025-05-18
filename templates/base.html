@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}翰墨藥香 Hanmo Herbal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">首頁</a>
+            <div class="dropdown">
+                <a href="{{ url_for('about') }}">品牌理念</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('about') }}#about">關於翰墨藥香</a>
+                    <a href="{{ url_for('about') }}#value">我們的堅持</a>
+                    <a href="{{ url_for('about') }}#philosophy">選物哲學</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="{{ url_for('products') }}">精選商品</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('aroma') }}">香薰/香氛</a>
+                    <a href="{{ url_for('tea') }}">花草茶/果乾水</a>
+                    <a href="{{ url_for('soap') }}">手工皂</a>
+                    <a href="{{ url_for('bodycare') }}">身體保養</a>
+                    <a href="{{ url_for('herbal') }}">養生藥膳</a>
+                    <a href="{{ url_for('dessert') }}">甜點飲品</a>
+                    <a href="{{ url_for('gift') }}">精品小物</a>
+                </div>
+            </div>
+            <a href="{{ url_for('blog') }}">生活誌</a>
+            <a href="{{ url_for('contact') }}">聯絡與合作</a>
+            <!-- 右上角功能 -->
+            <div class="nav-icons">
+                <a href="{{ url_for('cart') }}">🛒</a>
+                <a href="{{ url_for('search') }}">🔍</a>
+                <a href="{{ url_for('login') }}">會員登入</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 翰墨藥香 Hanmo Herbal</p>
+    </footer>
+</body>
+</html>

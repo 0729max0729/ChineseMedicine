@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}購物車 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>購物車</h1>
+<ul>
+    {% for item in cart_items %}
+    <li>{{ item.product.name }} x {{ item.quantity }} - ${{ item.total_price }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('checkout') }}">結帳</a>
+{% endblock %}

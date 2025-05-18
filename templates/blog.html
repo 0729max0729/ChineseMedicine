@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}生活誌 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>生活誌</h1>
+<ul>
+    {% for article in articles %}
+    <li><a href="{{ url_for('article', article_id=article.id) }}">{{ article.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
