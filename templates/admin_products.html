@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}商品管理 | 商家後台{% endblock %}
+{% block content %}
+
+<h1>商品管理</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="flash-{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>商品名稱</th>
+        <th>圖片</th>
+        <th>價格</th>
+        <th>分類</th>
+        <th>描述</th>
+        <th>操作</th>
+    </tr>
+    {% for product in all_products %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" style="max-width:90px;">
+            {% endif %}
+        </td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.description|truncate(40) }}</td>
+        <td>
+            <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                <button type="submit" onclick="return confirm('確定要下架這個商品嗎？')">下架</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="{{ url_for('add_product') }}">＋上架新商品</a>
+<a href="{{ url_for('products') }}" style="margin-left:20px;">回前台商品總覽</a>
+{% endblock %}

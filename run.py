@@ -273,6 +273,20 @@ def add_product():
     return render_template('add_product.html')
 
 
+@app.route('/admin/delete_product/<int:product_id>', methods=['POST'])
+def delete_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    db.session.delete(product)
+    db.session.commit()
+    flash('商品已下架', 'success')
+    return redirect(url_for('products'))  # 可改回管理頁
+    
+@app.route('/admin/products')
+def admin_products():
+    all_products = Product.query.order_by(Product.id.desc()).all()
+    return render_template('admin_products.html', all_products=all_products)
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
     app.run(host='0.0.0.0', port=port)
