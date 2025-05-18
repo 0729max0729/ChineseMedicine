@@ -1,0 +1,1 @@
+<h2>歷史訂單</h2>{% for o in orders %}<p>編號 {{ o.id }} | 總額：${{ o.total }} | 狀態：{{ o.status }} | {{ o.created_at }}</p>{% endfor %}

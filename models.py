@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -27,3 +28,5 @@ class Order(db.Model):
     user_email = db.Column(db.String(120))
     items = db.Column(db.Text)
     total = db.Column(db.Float)
+    status = db.Column(db.String(20), default='Pending')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
