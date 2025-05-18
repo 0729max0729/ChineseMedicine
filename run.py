@@ -134,6 +134,10 @@ def logout():
 def order_history():
     return "<h1>訂單紀錄 (未實作)</h1>"
 
+@app.route('/checkout')
+def checkout():
+    return "<h1>結帳頁面（尚未實作）</h1>"
+    
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
     app.run(host='0.0.0.0', port=port)
