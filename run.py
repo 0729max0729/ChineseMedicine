@@ -65,6 +65,28 @@ def product_detail(product_id):
     product = Product.query.get_or_404(product_id)
     return render_template('product_detail.html', product=product)
 
+@app.route('/update_cart/<product_id>', methods=['POST'])
+def update_cart(product_id):
+    if 'cart' in session:
+        cart = session['cart']
+        quantity = int(request.form.get('quantity', 1))
+        if quantity > 0:
+            cart[product_id]['quantity'] = quantity
+            session['cart'] = cart
+            flash('已更新數量', 'info')
+    return redirect(url_for('cart'))
+
+@app.route('/remove_from_cart/<product_id>', methods=['POST'])
+def remove_from_cart(product_id):
+    if 'cart' in session:
+        cart = session['cart']
+        if product_id in cart:
+            del cart[product_id]
+            session['cart'] = cart
+            flash('已刪除商品', 'info')
+    return redirect(url_for('cart'))
+
+
 @app.route('/blog')
 def blog():
     articles = []  # 你可以在這裡查詢文章列表
@@ -138,9 +160,30 @@ def logout():
 def order_history():
     return "<h1>訂單紀錄 (未實作)</h1>"
 
-@app.route('/checkout')
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    return "<h1>結帳頁面（尚未實作）</h1>"
+    if 'cart' not in session or not session['cart']:
+        flash('購物車是空的', 'warning')
+        return redirect(url_for('cart'))
+
+    if request.method == 'POST':
+        # 處理訂單資料，可存到資料庫
+        name = request.form['name']
+        address = request.form['address']
+        phone = request.form['phone']
+        cart = session.get('cart', {})
+        user_id = session.get('user_id')
+
+        # 這裡示範印出或存檔
+        print(f"下單人:{name} 地址:{address} 電話:{phone} 訂單內容:{cart} 會員ID:{user_id}")
+
+        # TODO: 實際專案應存到 Order, OrderItem 資料表，寄信給店主
+        session['cart'] = {}  # 清空購物車
+        flash('訂單已送出！感謝您的購買。', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('checkout.html')
+
     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數

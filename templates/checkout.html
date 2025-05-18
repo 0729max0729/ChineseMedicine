@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}結帳 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>結帳</h1>
+<form method="post">
+    <label for="name">收件人姓名：</label>
+    <input type="text" id="name" name="name" required><br>
+    <label for="address">寄送地址：</label>
+    <input type="text" id="address" name="address" required><br>
+    <label for="phone">聯絡電話：</label>
+    <input type="text" id="phone" name="phone" required><br>
+    <button type="submit">送出訂單</button>
+</form>
+{% endblock %}

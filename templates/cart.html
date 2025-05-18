@@ -2,10 +2,48 @@
 {% block title %}購物車 | 翰墨藥香{% endblock %}
 {% block content %}
 <h1>購物車</h1>
-<ul>
-    {% for item in cart_items %}
-    <li>{{ item.product.name }} x {{ item.quantity }} - ${{ item.total_price }}</li>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
     {% endfor %}
-</ul>
-<a href="{{ url_for('checkout') }}">結帳</a>
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if cart_items %}
+    <form method="post" action="{{ url_for('checkout') }}">
+    <table>
+        <tr>
+            <th>商品</th><th>單價</th><th>數量</th><th>小計</th><th>操作</th>
+        </tr>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>${{ item.price }}</td>
+            <td>
+                <form method="post" action="{{ url_for('update_cart', product_id=item.product_id) }}" style="display:inline;">
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width:3em;">
+                    <button type="submit">修改</button>
+                </form>
+            </td>
+            <td>${{ item.subtotal }}</td>
+            <td>
+                <form method="post" action="{{ url_for('remove_from_cart', product_id=item.product_id) }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('確定要刪除？')">刪除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3" style="text-align:right;"><b>總計</b></td>
+            <td colspan="2"><b>${{ total }}</b></td>
+        </tr>
+    </table>
+    <a href="{{ url_for('checkout') }}">前往結帳</a>
+    </form>
+{% else %}
+    <p>購物車是空的。</p>
+{% endif %}
 {% endblock %}
