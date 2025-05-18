@@ -1,14 +1,45 @@
 {% extends 'base.html' %}
-{% block title %}精選商品 | 翰墨藥香{% endblock %}
+{% block title %}商品總覽 | 翰墨藥香{% endblock %}
 {% block content %}
-<h1>精選商品</h1>
+<h1>商品總覽</h1>
+
+<!-- 分類快速導覽 -->
 <ul>
-    <li><a href="{{ url_for('aroma') }}">香薰/香氛</a></li>
-    <li><a href="{{ url_for('tea') }}">花草茶/果乾水</a></li>
-    <li><a href="{{ url_for('soap') }}">手工皂</a></li>
-    <li><a href="{{ url_for('bodycare') }}">身體保養</a></li>
-    <li><a href="{{ url_for('herbal') }}">養生藥膳</a></li>
-    <li><a href="{{ url_for('dessert') }}">甜點飲品</a></li>
-    <li><a href="{{ url_for('gift') }}">精品小物</a></li>
+{% for cat_key, cat_name in categories %}
+    <li><a href="#{{ cat_key }}">{{ cat_name }}</a></li>
+{% endfor %}
 </ul>
+
+<!-- 搜尋框 -->
+<form method="get" action="{{ url_for('products') }}">
+    <input type="text" name="q" placeholder="搜尋商品…" value="{{ q }}">
+    <button type="submit">搜尋</button>
+</form>
+{% if q %}
+    <p>搜尋「{{ q }}」的結果：</p>
+{% endif %}
+
+<!-- 依分類羅列 -->
+{% for cat_key, cat_name in categories %}
+    <h2 id="{{ cat_key }}">{{ cat_name }}</h2>
+    <ul>
+    {% for product in category_dict[cat_key] %}
+        <li style="margin-bottom: 1em;">
+            <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                <strong>{{ product.name }}</strong>
+            </a>
+            - ${{ product.price }}
+            {% if product.image_url %}
+                <br>
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" style="max-width:120px;">
+            {% endif %}
+            <br>
+            {{ product.description|truncate(60) }}
+        </li>
+    {% else %}
+        <li>（本分類尚無商品）</li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+
 {% endblock %}

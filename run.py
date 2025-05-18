@@ -4,6 +4,16 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
 
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    
 app = Flask(__name__)
 app.config.from_object('config.Config')
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -23,7 +33,37 @@ def about():
 
 @app.route('/products')
 def products():
-    return render_template('products.html')
+    q = request.args.get('q', '').strip()
+    query = Product.query
+    if q:
+        # 支援商品名稱、分類、描述模糊查詢
+        search = f"%{q}%"
+        query = query.filter(
+            db.or_(
+                Product.name.ilike(search),
+                Product.description.ilike(search),
+                Product.category.ilike(search)
+            )
+        )
+    all_products = query.order_by(Product.id.desc()).all()
+
+    categories = [
+        ('aroma', '香薰/香氛'),
+        ('tea', '花草茶/果乾水'),
+        ('soap', '手工皂'),
+        ('bodycare', '身體保養'),
+        ('herbal', '養生藥膳'),
+        ('dessert', '甜點飲品'),
+        ('gift', '精品小物')
+    ]
+    category_dict = {key: [] for key, _ in categories}
+    for product in all_products:
+        if product.category in category_dict:
+            category_dict[product.category].append(product)
+        else:
+            category_dict.setdefault(product.category, []).append(product)
+    return render_template('products.html', categories=categories, category_dict=category_dict, q=q)
+
 
 # 商品子分類頁（以香薰/香氛為例）
 @app.route('/aroma')
@@ -186,7 +226,53 @@ def checkout():
 
     return render_template('checkout.html')
 
-    
+
+@app.route('/admin/add_product', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'POST':
+        name = request.form['name']
+        description = request.form['description']
+        price = float(request.form['price'])
+        category = request.form['category']
+        image_url = request.form.get('image_url', '')
+
+        file = request.files.get('image_file')
+        # 預設先用網址
+        final_image_url = image_url.strip()
+
+        # 若有上傳檔案且格式允許
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            # 若檔名重複，自動加數字
+            basename, ext = os.path.splitext(filename)
+            counter = 1
+            while os.path.exists(save_path):
+                filename = f"{basename}_{counter}{ext}"
+                save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                counter += 1
+            file.save(save_path)
+            final_image_url = f"/static/uploads/{filename}"
+
+        if not name or not price or not category:
+            flash('請輸入商品名稱、價格和分類', 'danger')
+            return render_template('add_product.html')
+
+        new_product = Product(
+            name=name,
+            description=description,
+            price=price,
+            image_url=final_image_url,
+            category=category
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        flash('商品已成功上架！', 'success')
+        return redirect(url_for('add_product'))
+
+    return render_template('add_product.html')
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Render 會自動提供 PORT 環境變數
     app.run(host='0.0.0.0', port=port)

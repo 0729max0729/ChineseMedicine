@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}商品上架 | 商家後台{% endblock %}
+{% block content %}
+<h1>商品上架</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for category, message in messages %}
+      <li class="flash-{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form method="post" enctype="multipart/form-data">
+    <label for="name">商品名稱：</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="price">價格：</label><br>
+    <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+    <label for="category">分類：</label><br>
+    <select id="category" name="category" required>
+        <option value="">請選擇</option>
+        <option value="aroma">香薰/香氛</option>
+        <option value="tea">花草茶/果乾水</option>
+        <option value="soap">手工皂</option>
+        <option value="bodycare">身體保養</option>
+        <option value="herbal">養生藥膳</option>
+        <option value="dessert">甜點飲品</option>
+        <option value="gift">精品小物</option>
+    </select><br><br>
+
+    <label for="image_url">商品圖片網址（可選）：</label><br>
+    <input type="text" id="image_url" name="image_url"><br>
+    <label for="image_file">或直接上傳圖片：</label><br>
+    <input type="file" id="image_file" name="image_file" accept="image/*"><br><br>
+
+    <label for="description">商品描述：</label><br>
+    <textarea id="description" name="description" rows="4" cols="40"></textarea><br><br>
+
+    <button type="submit">上架商品</button>
+</form>
+{% endblock %}
