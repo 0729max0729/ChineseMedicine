@@ -121,10 +121,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
-        # 驗證密碼是否正確（加密驗證）
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             return redirect(url_for('profile'))
+        else:
+            flash('帳號或密碼錯誤，請重新輸入。', 'danger')
     return render_template('login.html')
 
 
