@@ -1,4 +1,6 @@
 flask
 flask_sqlalchemy
 flask_login
-pymysql
+flask_wtf
+psycopg2-binary
+email-validator
