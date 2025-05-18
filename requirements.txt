@@ -1,9 +1,4 @@
 flask
 flask_sqlalchemy
 flask_login
-flask_mail
-flask_admin
-flask_wtf
-wtforms
-werkzeug
-ecpay-payment-sdk
+pymysql

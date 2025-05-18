@@ -1,1 +1,0 @@
-<h2>購物車</h2>{% for item in items %}<p>{{ item.product.name }} x {{ item.qty }} - ${{ item.product.price * item.qty }}</p>{% endfor %}<p>總金額：{{ total }}</p><a href='/checkout'>結帳</a>

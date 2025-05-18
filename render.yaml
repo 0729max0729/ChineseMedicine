@@ -1,14 +1,12 @@
 services:
   - type: web
-    name: hanmo-shop
+    name: hanmo-flask-app
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    startCommand: python run.py
     envVars:
       - key: SECRET_KEY
-        value: your-secret-key
-      - key: MAIL_USERNAME
-        value: your-email@gmail.com
-      - key: MAIL_PASSWORD
-        value: your-app-password
+        value: devkey
+      - key: DATABASE_URL
+        value: mysql+pymysql://user:password@your-mysql-host/dbname
