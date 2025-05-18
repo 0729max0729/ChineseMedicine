@@ -10,7 +10,6 @@ app.secret_key = os.environ.get('SECRET_KEY')
 
 
 with app.app_context():
-    db.drop_all()
     db.create_all()
 db.init_app(app)
 
