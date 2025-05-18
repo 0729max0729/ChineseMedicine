@@ -5,7 +5,7 @@ from config import Config
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-login_manager.login_view = "auth.login"
+login_manager.login_view = "user.login"
 
 def create_app():
     app = Flask(__name__)
@@ -16,10 +16,12 @@ def create_app():
 
     from app.routes.public import public_bp
     from app.routes.shop import shop_bp
-    from app.routes.user import auth_bp
+    from app.routes.user import user_bp
+    from app.routes.admin import admin_bp
 
     app.register_blueprint(public_bp)
     app.register_blueprint(shop_bp, url_prefix="/shop")
-    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(user_bp, url_prefix="/user")
+    app.register_blueprint(admin_bp, url_prefix="/admin")
 
     return app
