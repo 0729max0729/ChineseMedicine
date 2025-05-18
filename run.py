@@ -3,6 +3,7 @@ from models import db, User, Product
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
+from app import db
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
