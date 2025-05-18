@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}甜點飲品 | 翰墨藥香{% endblock %}
+{% block content %}
+<h1>甜點飲品</h1>
+<ul>
+    {% for product in dessert_products %}
+    <li>
+        <a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a>
+        - ${{ product.price }}
+        {% if product.image_url %}
+        <br><img src="{{ product.image_url }}" alt="{{ product.name }}" style="max-width:120px;">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% if not dessert_products %}
+    <p>暫無商品</p>
+{% endif %}
+{% endblock %}
